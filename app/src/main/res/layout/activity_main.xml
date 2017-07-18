@@ -16,27 +16,34 @@
             android:id="@+id/editTextEdy"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/imageButton1"
-            android:layout_marginBottom="23dp"
             android:layout_marginLeft="15dp"
             android:layout_marginStart="15dp"
-            android:layout_toEndOf="@+id/imageButton1"
-            android:layout_toRightOf="@+id/imageButton1"
             android:ems="10"
             android:inputType="number"
-            android:textAlignment="viewEnd" />
+            android:layout_alignBottom="@+id/imageView"
+            android:layout_toRightOf="@+id/imageView"
+            android:layout_toEndOf="@+id/imageView" />
 
-        <ImageButton
-            android:id="@+id/imageButton1"
+        <ImageView
+            android:id="@+id/imageView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:srcCompat="@drawable/edy1"
+            android:layout_marginTop="47dp"
+            android:layout_marginLeft="39dp"
+            android:layout_marginStart="39dp"
             android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginLeft="26dp"
-            android:layout_marginStart="26dp"
-            android:layout_marginTop="42dp" />
+            android:layout_alignParentStart="true" />
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="153dp"
+            android:text="登録" />
 
     </RelativeLayout>
 </android.support.constraint.ConstraintLayout>
