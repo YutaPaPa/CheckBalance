@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">残額確認</string>
+    <string name="finish_message_title">登録完了</string>
+    <string name="finish_message">正常に登録完了しました</string>
+
 </resources>
