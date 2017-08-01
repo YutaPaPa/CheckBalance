@@ -16,6 +16,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import android.content.DialogInterface;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -25,7 +26,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private EditText editTextBunkadou;
     private Button btnEdy;
     private SharedPreferences CheckBalance;
-    private Resources res = getResources();
     private EditText editTextDate;
     private String cardNameArray[] = new String[4];
     private int moneyArray[] = new int[4];
@@ -52,31 +52,25 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Map<String, String> map = new HashMap<String, String>();
         map = load();
 
-        // 「\」記号をつけて表示する
-        NumberFormat currencyFormat = NumberFormat.getCurrencyInstance();
-        for (String str : map.keySet()) {
-            switch (str)
-            {
-                case "edy":
-                    editTextEdy.setText(currencyFormat.format(map.get(str)));
-                    break;
-                case "suica":
-                    editTextSuica.setText(currencyFormat.format(map.get(str)));
-                    break;
-                case "pasumo":
-                    editTextPasumo.setText(currencyFormat.format(map.get(str)));
-                    break;
-                case "bunkadou":
-                    editTextBunkadou.setText(currencyFormat.format(map.get(str)));
-                    break;
-            }
-            //System.out.println(str + ":" + map.get(str));
-            // 結果：エアコン:air conditioner、パソコン:personal computer、リモコン:remote control
+        if (map.containsKey("edy"))
+        {
+            editTextEdy.setText(map.get("edy"));
         }
 
-/*        // 「\」記号をつけて表示する
-        NumberFormat currencyFormat = NumberFormat.getCurrencyInstance();
-        editTextEdy.setText(currencyFormat.format(edyMoney));*/
+        if (map.containsKey("suica"))
+        {
+            editTextSuica.setText(map.get("suica"));
+        }
+
+        if (map.containsKey("pasumo"))
+        {
+            editTextPasumo.setText(map.get("pasumo"));
+        }
+
+        if (map.containsKey("bunkadou"))
+        {
+            editTextBunkadou.setText(map.get("bunkadou"));
+        }
 
         // 登録ボタンにClickイベント設定
         btnEdy.setOnClickListener(this);
@@ -84,12 +78,69 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     protected void findViews(){
         editTextEdy = (EditText)findViewById(R.id.editTextEdy);
+        editTextEdy.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                // EditTextのフォーカスが外れた場合
+                if (hasFocus == false) {
+                    // ソフトキーボードを非表示にする
+                    InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(v.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+                }
+            }
+        });
+
+        editTextSuica = (EditText)findViewById(R.id.editTextSuica);
+        editTextSuica.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                // EditTextのフォーカスが外れた場合
+                if (hasFocus == false) {
+                    // ソフトキーボードを非表示にする
+                    InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(v.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+                }
+            }
+        });
+
+        editTextPasumo = (EditText)findViewById(R.id.editTextPasumo);
+        editTextPasumo.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                // EditTextのフォーカスが外れた場合
+                if (hasFocus == false) {
+                    // ソフトキーボードを非表示にする
+                    InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(v.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+                }
+            }
+        });
+
+        editTextBunkadou = (EditText)findViewById(R.id.editTextBunkadou);
+        editTextBunkadou.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                // EditTextのフォーカスが外れた場合
+                if (hasFocus == false) {
+                    // ソフトキーボードを非表示にする
+                    InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(v.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+                }
+            }
+        });
+
         btnEdy = (Button)findViewById(R.id.button);
         editTextDate = (EditText)findViewById(R.id.editTextDate);
+        editTextDate.setWidth(710);
     }
 
     @Override
     public void onClick(View v) {
+        // ボタンにフォーカスを移動させる
+        btnEdy.setFocusable(true);
+        btnEdy.setFocusableInTouchMode(true);
+        btnEdy.requestFocus();
+
         InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         inputMethodManager.showSoftInput(editTextEdy, InputMethodManager.SHOW_FORCED);
         inputMethodManager.showSoftInput(editTextSuica, InputMethodManager.SHOW_FORCED);
@@ -187,7 +238,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         // "DataStore"という名前でインスタンスを生成
         CheckBalance = getSharedPreferences("CheckBalance", MODE_PRIVATE);
-        final String edy = String.valueOf(CheckBalance.getInt("suica", 0));
+        final String edy = String.valueOf(CheckBalance.getInt("edy", 0));
         final String suica = String.valueOf(CheckBalance.getInt("suica", 0));
         final String pasumo = String.valueOf(CheckBalance.getInt("pasumo", 0));
         final String bunkadou = String.valueOf(CheckBalance.getInt("bunkadou", 0));
@@ -206,11 +257,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void finishMessage()
     {
+        Resources res = getResources();
+
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
         alert.setTitle(res.getString(R.string.finish_message_title).toString());
         alert.setMessage(res.getString(R.string.finish_message).toString());
         alert.setIcon(android.R.drawable.ic_dialog_info);
-        alert.setPositiveButton("OK", null);
+        alert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                // ボタンをクリックしたときの動作(何もしない)
+            }
+        });
         alert.show();
     }
 }

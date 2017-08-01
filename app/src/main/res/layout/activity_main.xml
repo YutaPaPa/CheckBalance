@@ -22,8 +22,8 @@
             android:layout_alignRight="@+id/editTextDate"
             android:layout_alignStart="@+id/button"
             android:ems="10"
+            android:gravity="right"
             android:inputType="number"
-            android:textAlignment="viewEnd"
             android:textSize="24sp"
             android:textStyle="bold" />
 
@@ -54,8 +54,8 @@
             android:layout_alignLeft="@+id/imageView"
             android:layout_alignParentTop="true"
             android:layout_alignStart="@+id/imageView"
-            android:layout_marginLeft="24dp"
-            android:layout_marginStart="24dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginStart="20dp"
             android:layout_marginTop="11dp"
             android:ems="10"
             android:inputType="date" />
@@ -74,14 +74,16 @@
             android:id="@+id/editTextSuica"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/imageView2"
+            android:layout_alignEnd="@+id/editTextEdy"
+            android:layout_alignLeft="@+id/editTextEdy"
+            android:layout_alignRight="@+id/editTextEdy"
+            android:layout_alignStart="@+id/editTextEdy"
             android:ems="10"
+            android:gravity="right"
             android:inputType="number"
             android:textSize="24sp"
-            android:layout_alignBottom="@+id/imageView2"
-            android:layout_alignLeft="@+id/editTextEdy"
-            android:layout_alignStart="@+id/editTextEdy"
-            android:layout_alignRight="@+id/editTextEdy"
-            android:layout_alignEnd="@+id/editTextEdy" />
+            android:textStyle="bold" />
 
         <ImageView
             android:id="@+id/imageView3"
@@ -97,14 +99,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/imageView3"
+            android:layout_alignEnd="@+id/editTextSuica"
             android:layout_alignLeft="@+id/editTextSuica"
+            android:layout_alignRight="@+id/editTextSuica"
             android:layout_alignStart="@+id/editTextSuica"
             android:layout_marginBottom="10dp"
             android:ems="10"
+            android:gravity="right"
             android:inputType="number"
             android:textSize="24sp"
-            android:layout_alignRight="@+id/editTextSuica"
-            android:layout_alignEnd="@+id/editTextSuica" />
+            android:textStyle="bold" />
 
         <ImageView
             android:id="@+id/imageView4"
@@ -123,13 +127,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/imageView4"
+            android:layout_alignEnd="@+id/editTextSuica"
             android:layout_alignLeft="@+id/editTextBunkadou"
+            android:layout_alignRight="@+id/editTextSuica"
             android:layout_alignStart="@+id/editTextBunkadou"
             android:ems="10"
+            android:gravity="right"
             android:inputType="number"
             android:textSize="24sp"
-            android:layout_alignRight="@+id/editTextSuica"
-            android:layout_alignEnd="@+id/editTextSuica" />
+            android:textStyle="bold" />
 
     </RelativeLayout>
 </android.support.constraint.ConstraintLayout>
