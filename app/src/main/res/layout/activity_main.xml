@@ -16,28 +16,27 @@
             android:id="@+id/editTextEdy"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_above="@+id/imageView2"
-            android:layout_alignEnd="@+id/editTextDate"
-            android:layout_alignLeft="@+id/button"
-            android:layout_alignRight="@+id/editTextDate"
-            android:layout_alignStart="@+id/button"
             android:ems="10"
             android:gravity="right"
             android:inputType="number"
             android:textSize="24sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:layout_alignBottom="@+id/imageView"
+            android:layout_toRightOf="@+id/imageView"
+            android:layout_alignRight="@+id/editTextDate"
+            android:layout_alignEnd="@+id/editTextDate" />
 
         <ImageView
             android:id="@+id/imageView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/editTextDate"
-            android:layout_marginEnd="17dp"
-            android:layout_marginRight="17dp"
-            android:layout_marginTop="18dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginRight="15dp"
+            app:srcCompat="@drawable/edy1"
+            android:layout_above="@+id/editTextSuica"
             android:layout_toLeftOf="@+id/button"
             android:layout_toStartOf="@+id/button"
-            app:srcCompat="@drawable/edy1" />
+            android:layout_marginBottom="37dp" />
 
         <Button
             android:id="@+id/button"
@@ -51,24 +50,20 @@
             android:id="@+id/editTextDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/imageView"
-            android:layout_alignParentTop="true"
-            android:layout_alignStart="@+id/imageView"
-            android:layout_marginLeft="20dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="11dp"
             android:ems="10"
-            android:inputType="date" />
+            android:inputType="date"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true" />
 
         <ImageView
             android:id="@+id/imageView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            app:srcCompat="@drawable/suica"
+            android:layout_above="@+id/imageView4"
             android:layout_alignLeft="@+id/imageView"
             android:layout_alignStart="@+id/imageView"
-            android:layout_below="@+id/imageView"
-            android:layout_marginTop="29dp"
-            app:srcCompat="@drawable/suica" />
+            android:layout_marginBottom="17dp" />
 
         <EditText
             android:id="@+id/editTextSuica"
@@ -120,22 +115,33 @@
             android:layout_alignRight="@+id/imageView2"
             android:layout_alignStart="@+id/imageView2"
             android:layout_marginBottom="31dp"
-            app:srcCompat="@drawable/pasumo" />
+            app:srcCompat="@drawable/s_pasumo1" />
 
         <EditText
             android:id="@+id/editTextPasumo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/imageView4"
-            android:layout_alignEnd="@+id/editTextSuica"
-            android:layout_alignLeft="@+id/editTextBunkadou"
-            android:layout_alignRight="@+id/editTextSuica"
-            android:layout_alignStart="@+id/editTextBunkadou"
             android:ems="10"
             android:gravity="right"
             android:inputType="number"
             android:textSize="24sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:layout_alignBottom="@+id/imageView4"
+            android:layout_alignLeft="@+id/editTextBunkadou"
+            android:layout_alignStart="@+id/editTextBunkadou"
+            android:layout_alignRight="@+id/editTextBunkadou"
+            android:layout_alignEnd="@+id/editTextBunkadou" />
+
+        <EditText
+            android:id="@+id/editTextNFC"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:gravity="center"
+            android:inputType="text"
+            android:layout_below="@+id/editTextDate"
+            android:layout_alignLeft="@+id/editTextDate"
+            android:layout_alignStart="@+id/editTextDate" />
 
     </RelativeLayout>
 </android.support.constraint.ConstraintLayout>
