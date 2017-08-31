@@ -45,6 +45,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private StringBuffer sb1 = new StringBuffer();
     private EditText editTextNFC;
     private String nfcTitle = "NFCの残額は";
+    public static final String SYSTEMCODE_SUICA = "0003";       // Suica (=サイバネ領域) int型だと0x0003
+    public static final String SYSTEMCODE_PASMO = "0003";       // Pasmo (=サイバネ領域) int型だと0x0003
+    public static final int SYSTEMCODE_EDY = 0xfe00;         // Edy (=共通領域)
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,28 +103,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 IDm = tag.getId();
             }
 
+            //NfcF nfc = NfcF.get(tag);
             NfcF nfc = NfcF.get(tag);
+            String systemCode = asHex(nfc.get(tag).getSystemCode());
+
             try {
                 nfc.connect();
 
-                // edy用処理 -------------------------------------------------Start
-                byte[] idm =  new byte[8];
-                byte[] responce = null;
-
-                responce = nfc.transceive(polling_common_area_command);
-                if (responce != null) {
-                    for (int i = 0; i < 8; i++) {
-                        idm[i] = responce[i + 2];
-                    }
-                }
-
-                byte[] responce2 = null;
-                for(int i = 0; i < 8; i++) {
-                    request_service_edy_no_command[2+i] = idm[i];
-                }
-                responce2 = nfc.transceive(request_service_edy_no_command);
-
-                if((responce2[11] == (byte)0xFF) && (responce2[12] == (byte)0xFF))
+                if (systemCode.equals(this.SYSTEMCODE_SUICA) || systemCode.equals(this.SYSTEMCODE_PASMO))
                 {
                     // Suica or Pasumo
                     Felica felica = new Felica();
@@ -139,6 +128,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 else
                 {
                     // Edy
+                    byte[] idm =  new byte[8];
+                    byte[] responce = null;
+
+                    responce = nfc.transceive(polling_common_area_command);
+                    if (responce != null) {
+                        for (int i = 0; i < 8; i++) {
+                            idm[i] = responce[i + 2];
+                        }
+                    }
+
                     byte[] responce3 = null;
                     for (int i = 0; i < 8; i++) {
                         read_wo_encryption_edy_command[2 + i] = idm[i];
@@ -236,6 +235,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     /**
      * Click時処理の設定
+     * @param v View
      */
     @Override
     public void onClick(View v) {
@@ -344,6 +344,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     /**
      * NFCからEdyの残額を読み出す処理
+     * @param EdyResult NFCから読み取ったEdy情報(バイト配列)
      */
     public int dispEdyResult(byte[] EdyResult) {
         ByteBuffer bf = ByteBuffer.allocate(4);
@@ -357,5 +358,34 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         zandaka = size;
 
         return zandaka;
+    }
+
+    /**
+     * バイト配列を16進数の文字列に変換する。
+     *
+     * @param bytes バイト配列
+     * @return 16進数の文字列
+     */
+    public static String asHex(byte bytes[]) {
+        // バイト配列の２倍の長さの文字列バッファを生成。
+        StringBuffer strbuf = new StringBuffer(bytes.length * 2);
+
+        // バイト配列の要素数分、処理を繰り返す。
+        for (int index = 0; index < bytes.length; index++) {
+            // バイト値を自然数に変換。
+            int bt = bytes[index] & 0xff;
+
+            // バイト値が0x10以下か判定。
+            if (bt < 0x10) {
+                // 0x10以下の場合、文字列バッファに0を追加。
+                strbuf.append("0");
+            }
+
+            // バイト値を16進数の文字列に変換して、文字列バッファに追加。
+            strbuf.append(Integer.toHexString(bt));
+        }
+
+        /// 16進数の文字列を返す。
+        return strbuf.toString();
     }
 }
